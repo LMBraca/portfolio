@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-blue-600/20 text-blue-900 dark:bg-blue-400/20 dark:text-blue-100;
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply mx-auto max-w-6xl px-6;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-32;
+  }
+
+  .hero-gradient {
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+  }
+
+  .dark .hero-gradient {
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+  }
+
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .dark .grid-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
