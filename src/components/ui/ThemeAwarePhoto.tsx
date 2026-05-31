@@ -6,71 +6,105 @@ import { useTheme } from "next-themes";
 interface ThemeAwarePhotoProps {
   lightModeVideo: string;
   darkModeVideo: string;
+  poster: string;
+  onReady?: () => void;
 }
 
 export default function ThemeAwarePhoto({
   lightModeVideo,
   darkModeVideo,
+  poster,
+  onReady,
 }: ThemeAwarePhotoProps) {
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isInitialRef = useRef(true);
+  const [ready, setReady] = useState(false);
+  const [active, setActive] = useState<"none" | "light" | "dark">("none");
+  const lightRef = useRef<HTMLVideoElement>(null);
+  const darkRef = useRef<HTMLVideoElement>(null);
+  const onReadyRef = useRef(onReady);
+  const prevThemeRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
-    const preloadVideo = (src: string) => {
-      const v = document.createElement("video");
-      v.src = src;
-      v.preload = "auto";
+    onReadyRef.current = onReady;
+  }, [onReady]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const sources = [lightModeVideo, darkModeVideo];
+    let loaded = 0;
+    const done = () => {
+      if (cancelled) return;
+      loaded++;
+      if (loaded === sources.length) {
+        setReady(true);
+        onReadyRef.current?.();
+      }
     };
-    preloadVideo(lightModeVideo);
-    preloadVideo(darkModeVideo);
-    setMounted(true);
+    sources.forEach((src) => {
+      fetch(src)
+        .then((res) => res.blob())
+        .then(done)
+        .catch(done);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [lightModeVideo, darkModeVideo]);
 
   useEffect(() => {
-    if (!mounted || !videoRef.current || !theme) return;
+    if (!ready || !theme) return;
 
-    const video = videoRef.current;
-    const videoSrc = theme === "light" ? lightModeVideo : darkModeVideo;
-    const isInitial = isInitialRef.current;
-    isInitialRef.current = false;
+    if (prevThemeRef.current === undefined) {
+      prevThemeRef.current = theme;
+      return;
+    }
+    if (prevThemeRef.current === theme) return;
+    prevThemeRef.current = theme;
 
-    video.src = videoSrc;
-
-    const handleLoaded = () => {
-      if (isInitial) {
-        video.currentTime = video.duration;
-      } else {
-        video.currentTime = 0;
-        video.play().catch(() => {
-          video.currentTime = video.duration;
-        });
-      }
-    };
-
-    video.addEventListener("loadedmetadata", handleLoaded, { once: true });
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoaded);
-    };
-  }, [theme, mounted, lightModeVideo, darkModeVideo]);
-
-  if (!mounted) {
-    return (
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl md:aspect-auto md:h-full" />
-    );
-  }
+    const next = theme === "light" ? "light" : "dark";
+    const v = next === "light" ? lightRef.current : darkRef.current;
+    setActive(next);
+    if (!v) return;
+    try {
+      v.currentTime = 0;
+    } catch {}
+    v.play().catch(() => {});
+  }, [theme, ready]);
 
   return (
-    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl md:aspect-auto md:h-full">
-      <video
-        ref={videoRef}
+    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-900">
+      <img
+        src={poster}
+        alt=""
+        aria-hidden
         className="absolute inset-0 h-full w-full object-contain"
-        muted
-        playsInline
-        preload="auto"
       />
+      {ready && (
+        <>
+          <video
+            ref={lightRef}
+            src={lightModeVideo}
+            poster={poster}
+            muted
+            playsInline
+            preload="auto"
+            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-150 ${
+              active === "light" ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <video
+            ref={darkRef}
+            src={darkModeVideo}
+            poster={poster}
+            muted
+            playsInline
+            preload="auto"
+            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-150 ${
+              active === "dark" ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </>
+      )}
     </div>
   );
 }

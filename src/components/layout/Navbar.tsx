@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 
 const navLinks = ["about", "skills", "projects", "experience", "contact"] as const;
@@ -76,7 +75,6 @@ export default function Navbar() {
           {/* Controls */}
           <div className="flex items-center gap-2">
             <LanguageToggle />
-            <ThemeToggle />
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}

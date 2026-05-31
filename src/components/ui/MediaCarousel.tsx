@@ -117,7 +117,7 @@ export default function MediaCarousel({ items, title }: MediaCarouselProps) {
 
   return (
     <>
-      <div className="relative px-12 sm:px-14">
+      <div className="relative px-0 sm:px-14">
         <div
           className="relative mx-auto overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-100 transition-[aspect-ratio,max-width] duration-300 dark:border-neutral-800 dark:bg-neutral-900"
           style={{
@@ -174,7 +174,7 @@ export default function MediaCarousel({ items, title }: MediaCarouselProps) {
             <button
               type="button"
               onClick={goPrev}
-              className="absolute left-1 top-1/2 z-10 -translate-y-1/2 rounded-full p-2 text-neutral-500 transition hover:text-neutral-900 sm:left-2 dark:text-neutral-400 dark:hover:text-white"
+              className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition hover:bg-black/60 sm:bg-transparent sm:text-neutral-500 sm:backdrop-blur-none sm:hover:bg-transparent sm:hover:text-neutral-900 dark:sm:text-neutral-400 dark:sm:hover:text-white"
               aria-label="Previous"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 sm:h-7 sm:w-7">
@@ -184,7 +184,7 @@ export default function MediaCarousel({ items, title }: MediaCarouselProps) {
             <button
               type="button"
               onClick={goNext}
-              className="absolute right-1 top-1/2 z-10 -translate-y-1/2 rounded-full p-2 text-neutral-500 transition hover:text-neutral-900 sm:right-2 dark:text-neutral-400 dark:hover:text-white"
+              className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition hover:bg-black/60 sm:bg-transparent sm:text-neutral-500 sm:backdrop-blur-none sm:hover:bg-transparent sm:hover:text-neutral-900 dark:sm:text-neutral-400 dark:sm:hover:text-white"
               aria-label="Next"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 sm:h-7 sm:w-7">
