@@ -58,7 +58,7 @@ export const projects: Project[] = [
     techStack: ["Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL", "TimescaleDB", "Redis", "Docker"],
     category: { en: "Full-Stack Application", es: "Aplicación Full-Stack" },
     githubUrl: "https://github.com/LMBraca/BorderPulse",
-    liveUrl: "https://border-pulse.vercel.app/",
+    liveUrl: "https://border-pulse.com",
     status: { en: "Active Development", es: "Desarrollo Activo" },
     highlights: {
       en: [

@@ -52,27 +52,29 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.65 }}
-          className="mt-10 flex flex-wrap gap-4"
+          className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
         >
           <a
             href="#projects"
-            className="inline-flex items-center rounded-full bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/30 dark:shadow-blue-600/15 dark:hover:shadow-blue-600/25"
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/30 dark:shadow-blue-600/15 dark:hover:shadow-blue-600/25"
           >
             {t.hero.cta.projects}
           </a>
-          <a
-            href="/LuisMarioBracamontes.pdf"
-            download
-            className="inline-flex items-center rounded-full border border-neutral-300 bg-white px-7 py-3 text-sm font-semibold text-neutral-700 transition-all hover:border-neutral-400 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-800"
-          >
-            {t.hero.cta.resume}
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center rounded-full border border-neutral-300 bg-white px-7 py-3 text-sm font-semibold text-neutral-700 transition-all hover:border-neutral-400 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-800"
-          >
-            {t.hero.cta.contact}
-          </a>
+          <div className="flex gap-3 sm:contents">
+            <a
+              href="/LuisMarioBracamontes.pdf"
+              download
+              className="inline-flex flex-1 items-center justify-center rounded-full border border-neutral-300 bg-white px-7 py-3 text-sm font-semibold text-neutral-700 transition-all hover:border-neutral-400 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-800 sm:flex-none"
+            >
+              {t.hero.cta.resume}
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex flex-1 items-center justify-center rounded-full border border-neutral-300 bg-white px-7 py-3 text-sm font-semibold text-neutral-700 transition-all hover:border-neutral-400 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-800 sm:flex-none"
+            >
+              {t.hero.cta.contact}
+            </a>
+          </div>
         </motion.div>
       </div>
 
