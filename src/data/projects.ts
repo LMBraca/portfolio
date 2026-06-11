@@ -106,7 +106,7 @@ export const projects: Project[] = [
     category: { en: "Mobile App", es: "Aplicación Móvil" },
     githubUrl: "https://github.com/LMBraca/borderpulse-mobile",
     appStoreUrl: "https://apps.apple.com/mx/app/borderpulse/id6762310342?l=en-GB",
-    playStorePending: true,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.borderpulse.app&hl=es_419",
     status: { en: "Active Development", es: "Desarrollo Activo" },
     highlights: {
       en: [
